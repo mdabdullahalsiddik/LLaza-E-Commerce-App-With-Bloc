@@ -16,7 +16,7 @@ class SplashPage extends StatelessWidget {
         body: BlocListener<SplashCubit , SplashState>(
           listener: (context, state) {
             if (state is EndSplash) {
-              context.goNamed(Routes.HOME);
+              context.goNamed(Routes.WELCOME);
             }
           },
           child: Center(
