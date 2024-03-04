@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laza/features/bloc/laza_bloc_observer.dart';
-import 'package:laza/features/bloc/presentation/pages/home/home_bloc.dart';
-import 'package:laza/features/bloc/presentation/pages/home/home_state.dart';
 
 import 'package:laza/features/bloc/presentation/pages/splash/splash_cubit.dart';
 
