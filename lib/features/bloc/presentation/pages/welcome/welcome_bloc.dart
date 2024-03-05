@@ -1,20 +1,42 @@
-import 'dart:developer' as developer;
-
 import 'package:bloc/bloc.dart';
-import 'package:laza/features/bloc/presentation/pages/welcome/index.dart';
+import 'package:laza/features/bloc/domain/repositories/auth_repositories.dart';
+import 'package:laza/features/bloc/presentation/pages/welcome/welcome_event.dart';
+import 'package:laza/features/bloc/presentation/pages/welcome/welcome_state.dart';
 
 class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
-
-  WelcomeBloc(WelcomeState initialState) : super(initialState){
-   on<WelcomeEvent>((event, emit) {
-      return emit.forEach<WelcomeState>(
-        event.applyAsync(currentState: state, bloc: this),
-        onData: (state) => state,
-        onError: (error, stackTrace) {
-          developer.log('$error', name: 'WelcomeBloc', error: error, stackTrace: stackTrace);
-          return ErrorWelcomeState(error.toString());
-        },
-      );
-    });
+  final AuthRepositories authRepositories;
+  WelcomeBloc(this.authRepositories) : super(WelcomeInitial()) {
+    on<RequestGoogleSingIn>(
+      (event, emit) async {
+        try {
+          emit(SocialSingInLoading());
+          final user = await authRepositories.signInWithGoogle();
+          emit(SocialSingInSuccess());
+        } catch (e) {
+          emit(SocialSingInError(error: e.toString()));
+        }
+      },
+    );
+    on<RequestFacebookSingIn>(
+      (event, emit) async {
+        try {
+          emit(SocialSingInLoading());
+          final user = await authRepositories.signInWithFacebook();
+          emit(SocialSingInSuccess());
+        } catch (e) {
+          emit(SocialSingInError(error: e.toString()));
+        }
+      },
+    ); on<RequestTwitterSingIn>(
+      (event, emit) async {
+        try {
+          emit(SocialSingInLoading());
+          final user = await authRepositories.signInWithTwitter();
+          emit(SocialSingInSuccess());
+        } catch (e) {
+          emit(SocialSingInError(error: e.toString()));
+        }
+      },
+    );
   }
 }

@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "551301821386",
+    "project_id": "laza-e-commerce-d3ca0",
+    "storage_bucket": "laza-e-commerce-d3ca0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551301821386:android:a4669e9fa7df3c470b9533",
+        "android_client_info": {
+          "package_name": "com.example.laza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551301821386-pb4iu51chublqigg56p5la4pdakda702.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.laza",
+            "certificate_hash": "ad7e665ef1760d9d81d89b4bb0679a97130447ac"
+          }
+        },
+        {
+          "client_id": "551301821386-voghhj4rdlb70hk8jqhn4m86pmmc01mb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE7jnflyGA0KxM6-rlWjsThlLAkOEcDuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551301821386-voghhj4rdlb70hk8jqhn4m86pmmc01mb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "551301821386-6hd2q8hk1fmlq2k2rvfr3oaso7v8njdp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.laza"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
