@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:laza/features/bloc/data/models/auth_models.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class AuthRepositories {
@@ -24,10 +26,13 @@ class AuthRepositories {
 
       final UserCredential authResult =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      debugPrint('User: ${authResult.user?.email}');
+      if (authResult.user != null) {
+        await SendData(authResult.user!);
+      }
+      print('User: ${authResult.user?.email}');
       return authResult.user;
     } catch (error) {
-      debugPrint("Error signing in with Google: $error");
+      print("Error signing in with Google: $error");
       return null;
     }
   }
@@ -40,6 +45,9 @@ class AuthRepositories {
             FacebookAuthProvider.credential(result.accessToken!.token);
         final UserCredential authResult =
             await FirebaseAuth.instance.signInWithCredential(credential);
+        if (authResult.user != null) {
+          await SendData(authResult.user!);
+        }
         debugPrint("Facebook login success: ${authResult.user?.displayName}");
         return authResult.user;
       } else {
@@ -57,13 +65,16 @@ class AuthRepositories {
       final TwitterLogin twitterLogin = TwitterLogin(
           apiKey: "3HZmwn8nfaRU1BeIuiFrrjCdx",
           apiSecretKey: "2ZTsdUy1ceJLykhBXmZReXUh9bmv72RoBxB1O3GFP68RAh5oDm",
-          redirectURI: "Laza://");
+          redirectURI: "laza://");
       final result = await twitterLogin.loginV2();
       if (result.status == TwitterLoginStatus.loggedIn) {
         final credential = TwitterAuthProvider.credential(
             accessToken: result.authToken!, secret: result.authTokenSecret!);
         final UserCredential authResult =
             await FirebaseAuth.instance.signInWithCredential(credential);
+        if (authResult.user != null) {
+          await SendData(authResult.user!);
+        }
         debugPrint("Twitter login success: ${authResult.user?.displayName}");
         return authResult.user;
       } else {
@@ -74,5 +85,18 @@ class AuthRepositories {
       debugPrint("Error signing in with Twitter: $error");
       return null;
     }
+  }
+
+  Future SendData(User user) async {
+    final data = UserModel(
+      userName: user.displayName,
+      userEmail: user.email,
+      userImage: user.photoURL,
+      userPhone: user.phoneNumber,
+    );
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(user.uid)
+        .set(data.toJson());
   }
 }

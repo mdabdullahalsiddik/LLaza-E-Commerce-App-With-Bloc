@@ -63,6 +63,7 @@ class WelcomePage extends StatelessWidget {
                           context
                               .read<WelcomeBloc>()
                               .add(RequestGoogleSingIn());
+                          
                         },
                       ),
                     ],

@@ -27,7 +27,8 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
           emit(SocialSingInError(error: e.toString()));
         }
       },
-    ); on<RequestTwitterSingIn>(
+    );
+    on<RequestTwitterSingIn>(
       (event, emit) async {
         try {
           emit(SocialSingInLoading());
